@@ -95,11 +95,15 @@
     DTiPhoneSimulatorSessionConfig *config;
     DTiPhoneSimulatorSession *session;
     NSError *error;
+    NSString *absolutePath = [[NSURL fileURLWithPath:path] path];
 
+    if (verbose) {
+        nsprintf(@"Launching app: %@", absolutePath);
+    }
     /* Create the app specifier */
-    appSpec = [DTiPhoneSimulatorApplicationSpecifier specifierWithApplicationPath: path];
+    appSpec = [DTiPhoneSimulatorApplicationSpecifier specifierWithApplicationPath: absolutePath];
     if (appSpec == nil) {
-        nsprintf(@"Could not load application specification for %s", path);
+        nsprintf(@"Could not load application specification for %s", absolutePath);
         return EXIT_FAILURE;
     }
 	if (verbose) {
